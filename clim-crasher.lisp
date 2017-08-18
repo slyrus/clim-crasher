@@ -11,8 +11,6 @@
 
 (in-package :clim-crasher)
 
-(defclass clim-crasher-pane (application-pane) ())
-
 (define-application-frame clim-crasher ()
   ()
   (:menu-bar menubar-command-table)
@@ -27,12 +25,9 @@
   (:layouts
    (default 
        (vertically (:height 250)
-         (labelling ())
-         (labelling (:label "Theta")
-           theta)))))
-
-(defmethod handle-repaint ((pane clim-crasher-pane) region)
-  )
+         (labelling ()
+           (labelling (:label "Theta")
+             theta))))))
 
 (defun clim-crasher (&key (new-process t))
   (flet ((run ()
