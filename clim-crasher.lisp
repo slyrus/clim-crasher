@@ -13,15 +13,6 @@
 
 (defclass clim-crasher-pane (application-pane) ())
 
-(defun theta-callback (gadget degrees)
-  (declare (ignore gadget)))
-
-(defun y-shear-callback (gadget shear)
-  (declare (ignore gadget)))
-
-(defun x-shear-callback (gadget shear)
-  (declare (ignore gadget)))
-
 (define-application-frame clim-crasher ()
   ()
   (:menu-bar menubar-command-table)
@@ -32,27 +23,7 @@
           :decimal-places 1
           :value 0
           :show-value-p t
-          :orientation :horizontal
-          :drag-callback 'theta-callback
-          :value-changed-callback 'theta-callback)
-   (y-shear :slider
-            :min-value -5
-            :max-value 5
-            :decimal-places 2
-            :value 0.0d0
-            :show-value-p t
-            :orientation :horizontal
-            :drag-callback 'y-shear-callback
-            :value-changed-callback 'y-shear-callback)
-   (x-shear :slider
-            :min-value -5
-            :max-value 5
-            :decimal-places 2
-            :value 0.0d0
-            :show-value-p t
-            :orientation :horizontal
-            :drag-callback 'x-shear-callback
-            :value-changed-callback 'x-shear-callback)
+          :orientation :horizontal)
    (interactor :interactor
                :text-style (make-text-style :sans-serif nil nil)
                :min-height 100))
@@ -65,10 +36,7 @@
                    (labelling ())
                    (labelling (:label "Theta")
                      theta)
-                   (labelling (:label "Y Shear")
-                     y-shear)
-                   (labelling (:label "X Shear")
-                     x-shear)))))
+                   ))))
          (1/5 interactor)))))
 
 (defmethod handle-repaint ((pane clim-crasher-pane) region)
