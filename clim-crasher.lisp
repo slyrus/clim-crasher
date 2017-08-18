@@ -27,10 +27,9 @@
   (:layouts
    (default 
        (vertically (:height 250)
-         (vertically ()
-           (labelling ())
-           (labelling (:label "Theta")
-             theta))))))
+         (labelling ())
+         (labelling (:label "Theta")
+           theta)))))
 
 (defmethod handle-repaint ((pane clim-crasher-pane) region)
   )
