@@ -11,23 +11,7 @@
 
 (in-package :clim-crasher)
 
-(defclass clim-crasher-pane (application-pane) 
-  ((image :initarg :image :accessor image)
-   (transform-parameters :accessor transform-parameters :initarg :transform-parameters)
-   (transform :accessor transform :initarg :transform)
-   (lock-x-and-y-scale :accessor lock-x-and-y-scale :initarg :lock-x-and-y-scale)
-   (clear-background-needed-p :accessor clear-background-needed-p :initarg :clear-background-needed-p))
-  (:default-initargs :image nil
-    :transform-parameters #(1d0 1d0 0d0 0d0 0d0 0d0 0d0)
-    :lock-x-and-y-scale t
-    :clear-background-needed-p nil
-    :transform nil))
-
-(defun y-scale-callback (gadget scale)
-  (declare (ignore gadget)))
-
-(defun x-scale-callback (gadget scale)
-  (declare (ignore gadget)))
+(defclass clim-crasher-pane (application-pane) ())
 
 (defun theta-callback (gadget degrees)
   (declare (ignore gadget)))
@@ -42,34 +26,6 @@
   ()
   (:menu-bar menubar-command-table)
   (:panes
-   (lock-scale :toggle-button
-               :label "Lock X and Y Scale"
-               :value t
-               :value-changed-callback
-               (lambda (gadget value)
-                 (declare (ignore gadget))
-                 (let ((viewer (find-pane-named *application-frame* 'clim-crasher-pane)))
-                   (with-accessors ((lock-x-and-y-scale lock-x-and-y-scale))
-                       viewer
-                     (setf lock-x-and-y-scale value)))))
-   (y-scale :slider
-            :min-value 0.1
-            :max-value 4
-            :decimal-places 2
-            :value 1.0d0
-            :show-value-p t
-            :orientation :horizontal
-            :drag-callback 'y-scale-callback
-            :value-changed-callback 'y-scale-callback)
-   (x-scale :slider
-            :min-value 0.1
-            :max-value 4
-            :decimal-places 2
-            :value 1.0d0
-            :show-value-p t
-            :orientation :horizontal
-            :drag-callback 'x-scale-callback
-            :value-changed-callback 'x-scale-callback)
    (theta :slider
           :min-value -180
           :max-value 180
@@ -105,17 +61,8 @@
        (vertically (:height 250)
          (4/5
           (horizontally (:width 600)
-            #+nil
-            (5/6 viewer)
             (1/6 (vertically ()
-                   (labelling ()
-                     #+nil
-                     (vertically ()
-                       lock-scale
-                       (labelling (:label "Y Scale")
-                         y-scale)
-                       (labelling (:label "X Scale")
-                         x-scale)))
+                   (labelling ())
                    (labelling (:label "Theta")
                      theta)
                    (labelling (:label "Y Shear")
