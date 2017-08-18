@@ -23,21 +23,14 @@
           :decimal-places 1
           :value 0
           :show-value-p t
-          :orientation :horizontal)
-   (interactor :interactor
-               :text-style (make-text-style :sans-serif nil nil)
-               :min-height 100))
+          :orientation :horizontal))
   (:layouts
    (default 
        (vertically (:height 250)
-         (4/5
-          (horizontally (:width 600)
-            (1/6 (vertically ()
-                   (labelling ())
-                   (labelling (:label "Theta")
-                     theta)
-                   ))))
-         (1/5 interactor)))))
+         (vertically ()
+           (labelling ())
+           (labelling (:label "Theta")
+             theta))))))
 
 (defmethod handle-repaint ((pane clim-crasher-pane) region)
   )
@@ -49,11 +42,6 @@
     (if new-process
         (clim-sys:make-process #'run :name "Clim-Crasher")
         (run))))
-
-(define-clim-crasher-command (com-redraw :name t) ()
-  (let ((viewer (find-pane-named *application-frame* 'clim-crasher-pane)))
-    (handle-repaint viewer (or (pane-viewport-region viewer)
-                               (sheet-region viewer)))))
 
 (define-clim-crasher-command (com-quit :name t :keystroke (#\q :meta)) ()
   (frame-exit *application-frame*))
